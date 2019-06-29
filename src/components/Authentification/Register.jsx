@@ -2,10 +2,17 @@ import React, {
   PureComponent,
 } from 'react';
 
-export const AuthForm = () => (
+export const RegisterForm = () => (
     <section>
       <form>
         <label htmlFor="email" />
+        <input
+          id="email"
+          type="email"
+          required
+          defaultValue="google@gmail.com"
+        />
+         <label htmlFor="email" />
         <input
           id="email"
           type="email"
@@ -23,6 +30,8 @@ export const AuthForm = () => (
 
       </form>
 
-
+    <Button className="confirm">
+        <button>Register</button>
+    </Button>
     </section>
 );

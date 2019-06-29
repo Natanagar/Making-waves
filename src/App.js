@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { store } from './index';
+import { getTracksFromServer } from './actions/index';
 import './App.css';
 
 function App() {
@@ -29,5 +32,7 @@ function App() {
     </>
   );
 }
-
-export default App;
+const mapDispatchToProps = dispatch => ({
+  getTracks: () => dispatch(getTracksFromServer),
+});
+export default connect(null, mapDispatchToProps)(App);
