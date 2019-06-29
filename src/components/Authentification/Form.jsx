@@ -7,7 +7,7 @@ export const AuthForm = () => (
     <form>
       <label htmlFor="" />
       <input
-type="email"
+        type="email"
         required
         defaultValue="google@gmail.com"
       />
