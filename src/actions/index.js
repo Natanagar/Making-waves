@@ -9,7 +9,7 @@ export const FETCH_TRACKS_ERROR = 'FETCH_TRACKS_ERROR';
 //
 export const getTracksFromServer = () => store.dispatch((dispatch) => {
   dispatch({ type: 'FETCH_CURRENCY_PENDING' });
-  const api = new Api();
+  /*const api = new Api();
   const { endpoint } = keyData;
   const { key } = keyData;
   api
@@ -17,10 +17,10 @@ export const getTracksFromServer = () => store.dispatch((dispatch) => {
     .then(res => dispatch({
       type: 'FETCH_TRACKS_SUCCESS',
       payload: {
-        items: res.data.rates,
-        data: format(res.data.date, 'DD.MM.YYYY'),
-        baseCurrency: res.data.base,
+        tracks: res.data.rates,
+        //data: format(res.data.date, 'DD.MM.YYYY'),
+
       },
     }))
-    .catch(err => dispatch({ type: 'FETCH_CURRENCY_ERROR', payload: err }));
+    .catch(err => dispatch({ type: 'FETCH_TRACKS_ERROR', payload: err })); */
 });
