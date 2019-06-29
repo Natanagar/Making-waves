@@ -7,7 +7,12 @@
   height: 40vmin;
   pointer-events: none;
 }*/
-
+ul {
+  list-style-type: none;
+}
+ul li {
+  display: inline-block;
+}
 header {
   background-color: orangered;
   min-height: 10vh;
