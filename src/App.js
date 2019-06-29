@@ -5,6 +5,7 @@ import { Router, Link } from '@reach/router';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
 import { getTracksFromServer } from './actions/index';
 import LoginFormAuth from './components/Authentification/Login';
+import RegisterFormHOC from './components/Authentification/Register';
 import Player from './components/Player/Player';
 import './App.css';
 // Player component will get props full of useful data!
@@ -36,6 +37,7 @@ const App = props => (
       />
     </div>
     <Router>
+
       <form path="autentification/*">
         {/* create wizard form for authentification */}
 Autentification
@@ -43,6 +45,7 @@ Autentification
       </form>
 
       <LoginFormAuth path="login" />
+      <RegisterFormHOC path="register" />
 
     </Router>
   </>

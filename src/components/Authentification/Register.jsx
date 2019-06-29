@@ -1,37 +1,42 @@
-import React, {
-  PureComponent,
-} from 'react';
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
 
-export const RegisterForm = () => (
-    <section>
-      <form>
-        <label htmlFor="email" />
-        <input
-          id="email"
-          type="email"
-          required
-          defaultValue="google@gmail.com"
-        />
-         <label htmlFor="email" />
-        <input
-          id="email"
-          type="email"
-          required
-          defaultValue="google@gmail.com"
-        />
-        <label htmlFor="password" />
-        <input
-          id="password"
-          type="password"
-          required
-          defaultValue="Password must contain special symbols"
-        />
+const RegisterForm = (props) => {
+  const { handleSubmit } = props;
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="firstName">Full Name</label>
+        <Field name="firstName" component="input" type="text" />
+      </div>
 
+      <div>
+        <label htmlFor="firstName">Username</label>
+        <Field name="firstName" component="input" type="text" />
+      </div>
+      <div>
+        <label htmlFor="email">Email</label>
+        <Field name="email" component="input" type="email" />
+      </div>
+      <div>
+        <label htmlFor="email">Email Confirmation</label>
+        <Field name="email" component="input" type="email" />
+      </div>
+      <div>
+        <label htmlFor="email">Password</label>
+        <Field name="email" component="input" type="email" />
+        <section>
+          <span>Passwords must be at least 8 characters long. The password must contain at least three character categories among the following: Uppercase characters (A-Z) Lowercase characters (a-z)</span>
+        </section>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
 
-      </form>
+const RegisterFormHOC = reduxForm({
+  // a unique name for the form
+  form: 'register',
+})(RegisterForm);
 
-    <Button className="confirm">
-        <button>Register</button>
-    </Button>
-    </section>
-);
+export default RegisterFormHOC;
