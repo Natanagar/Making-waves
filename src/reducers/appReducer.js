@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import {
   FETCH_TRACKS_PENDING,
   FETCH_TRACKS_START,
@@ -26,6 +27,8 @@ const appReducer = (state = initialState, action) => {
 
 const rootReducer = combineReducers({
   appReducer,
+  // form reducer
+  form: formReducer,
 
 });
 export default rootReducer;
