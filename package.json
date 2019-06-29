@@ -8,6 +8,7 @@
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "react-scripts": "3.0.1",
+    "react-soundplayer": "^1.0.4",
     "redux": "^4.0.1",
     "redux-form": "^8.2.4",
     "redux-logger": "^3.0.6",

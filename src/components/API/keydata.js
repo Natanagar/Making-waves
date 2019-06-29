@@ -1,7 +1,9 @@
 export const Apikey = {
-  oldkey: 'ebad364e6eba547a0daee933c19ce18c',
-  key: '6b6aa09ee3bb3b7ba1175d755b646613',
-  endpoint: 'http://data.fixer.io/api/',
-  nextEndpoint: 'https://api.exchangeratesapi.io/',
+  // spotify
+  key: '1b88dc822bcf411986df9f9776e72c3d',
+  endpoint: 'https://musixmatchcom-musixmatch.p.rapidapi.com/wsr/1.1/artist.search',
+  headers: {
+    Authorization: 'Bearer 14154151',
+    'Content-Type': 'application/json',
+  },
 };
-
