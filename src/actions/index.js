@@ -1,4 +1,4 @@
-import { store } from '../store/index';
+import store from '../store/index';
 
 // actions from App
 export const FETCH_TRACKS_PENDING = 'FETCH_TRACKS_PENDING';
@@ -7,9 +7,9 @@ export const FETCH_TRACKS_SUCCESS = 'FETCH_TRACKS_SUCCESS';
 export const FETCH_TRACKS_ERROR = 'FETCH_TRACKS_ERROR';
 
 //
-export const getTracksFromServer = () => store.dispatch((dispatch) => {
+export const getTracksFromServer = () => (dispatch) => {
   dispatch({ type: 'FETCH_CURRENCY_PENDING' });
-  /*const api = new Api();
+  /* const api = new Api();
   const { endpoint } = keyData;
   const { key } = keyData;
   api
@@ -23,4 +23,4 @@ export const getTracksFromServer = () => store.dispatch((dispatch) => {
       },
     }))
     .catch(err => dispatch({ type: 'FETCH_TRACKS_ERROR', payload: err })); */
-});
+};

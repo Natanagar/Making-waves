@@ -1,19 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import logger from 'redux-logger';
-import thunk from 'redux-thunk';
-import rootReducer from './reducers/appReducer';
+import store from './store/index';
+
 
 import App from './App';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-export const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk, logger),
-);
 window.store = store;
 console.log(store.getState());
 

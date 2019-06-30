@@ -15,12 +15,10 @@ const LoginForm = (props) => {
         <label htmlFor="password">
           <Field name="inputName" component="input" type="password" />
         </label>
-        <section>
-          <span>Passwords must be at least 8 characters long. The password must contain at least three character categories among the following: Uppercase characters (A-Z) Lowercase characters (a-z)</span>
-        </section>
+
       </div>
       <button onSubmit={handleSubmit}>Confirm</button>
-      <Link to="register"><section>Register</section></Link>
+      <Link to="/register"><section>Register</section></Link>
 
     </form>
   );
