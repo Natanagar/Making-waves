@@ -3,15 +3,17 @@ import axios from 'axios';
 import { Apikey } from './keydata';
 
 class Api {
-	constructor(endpoint, key, nextEndpoint, oldkey) {
+	constructor(endpoint, key, redirect_url, response_type, scope) {
 		this.endpoint = endpoint;
-		this.nextEndpoint = nextEndpoint;
+		this.response_type = response_type;
 		this.key = key;
-		this.oldkey = oldkey;
+		this.redirect_url = redirect_url;
+		this.scope = scope;
 	}
-	//fetch data for first render
-	getData = async (endpoint, key) => {
-		return await axios.get(`${endpoint}/latest?access_key=${key}`);
+	//OAuth
+	firstAuthorization = async (endpoint, key, response_type, redirect_url, scope) => {
+		console.log(endpoint, key, response_type, redirect_url, scope)
+		return await axios.get(`${endpoint}client_id=${key}&response_type=${response_type}&redirect_uri=${redirect_url}&scope=${scope}`);
 	};
 	// fetch data for cross-course
 	getCrossCurrency = async (endpoint) => {

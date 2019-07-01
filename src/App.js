@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Router, Link } from '@reach/router';
 import { push } from 'redux-first-history';
@@ -6,7 +6,7 @@ import {
   PlayButton, Progress, Icons,
 } from 'react-soundplayer/components';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
-import { getTracksFromServer } from './actions/index';
+import { getTracksFromServer, testOAuth } from './actions/index';
 import LoginFormAuth from './components/Authentification/Login';
 import RegisterFormHOC from './components/Authentification/Register';
 import Player from './components/Player/Player';
@@ -21,63 +21,56 @@ const {
   NextIconSVG,
   PrevIconSVG,
 } = Icons;
+
+// soundcloud
 const clientId = 'BeGVhOrGmfboy1LtiHTQF6Ejpt9ULJCI';
 const resolveUrl = 'https://soundcloud.com/levohotnik/knockin-on-heavens-door';
-
-// spotify
-const id_spotify = '1b88dc822bcf411986df9f9776e72c3d';
-const client_secret = 'b5325184d63e4264b07e6e3350ea7616';
+const streamUrl = 'https://drive.google.com/open?id=0B20VN4oA2BAAMEd0RUdsajZoaURQWUhPQ2tQcUx3Z0w5b0dr';
+const trackTitle = 'Достучаться до небес';
 
 
-const App = props => (
-  <>
+const App = ({ startAuth, dispatch }) => {
+  useEffect(() => startAuth(), []);
+  return (
+    <>
+      <div>
+        <header>
+          <div>
+            <nav>Audio player</nav>
+            <Link to="/login">
+              <ul>
+                <li>Login</li>
+              </ul>
 
+            </Link>
+          </div>
+        </header>
 
-    <div>
-      <header>
-        <div>
-          <nav>Audio player</nav>
-          <Link to="/login">
-            <ul>
-              <li>Login</li>
-            </ul>
+      </div>
+      <Router history={reachHistory}>
+        <LoginFormAuth path="login" />
+        <RegisterFormHOC path="register" />
 
-          </Link>
-        </div>
-      </header>
+      </Router>
+      <div>
+        <Player
 
-    </div>
-    <Router history={reachHistory}>
-      <LoginFormAuth path="login" />
-      <RegisterFormHOC path="register" />
+          trackTitle={trackTitle}
+          preloadType="metadata"
+          streamUrl={streamUrl}
+          onReady={() => {
+            console.log('player url ready!');
+          }}
+        />
+      </div>
+    </>
+  );
+};
+const mapStateToProps = ({ appReducer, form }) => ({
 
-    </Router>
-    <div>
-      <Player
-        clientId={clientId}
-        url={resolveUrl}
-        streamUrl={String}
-        onReady={() => {
-          console.log('player url ready!');
-        }}
-      />
-      <PlayButton
-        className={String}
-        playing={Boolean}
-        seeking={Boolean}
-        PlayIconSVG={PlayIconSVG}
-        onTogglePlay={Function}
-      />
-      <Progress
-        className={String}
-        innerClassName={String}
-        value={Number} // in range 0-100
-        onSeekTrack={Function}
-      />
-    </div>
-  </>
-);
+});
 const mapDispatchToProps = dispatch => ({
   getTracks: () => dispatch(getTracksFromServer),
+  startAuth: () => dispatch(testOAuth),
 });
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

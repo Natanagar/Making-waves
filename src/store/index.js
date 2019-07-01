@@ -3,12 +3,12 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createReduxHistoryContext, reachify } from 'redux-first-history';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import rootReducer from '../reducers/appReducer';
 
 
 const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
-  history: createHistory(),
+  history: createBrowserHistory(),
   // others options if needed
 });
 

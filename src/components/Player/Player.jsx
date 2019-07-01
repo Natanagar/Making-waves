@@ -1,29 +1,45 @@
 import React from 'react';
-import { PlayButton, Timer } from 'react-soundplayer/components';
+import {
+  PlayButton, Timer, VolumeControl, Progress, Icons,
+} from 'react-soundplayer/components';
+
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
 
+const {
+  SoundCloudLogoSVG,
+  PlayIconSVG,
+  PauseIconSVG,
+  NextIconSVG,
+  PrevIconSVG,
+} = Icons;
 
 const Player = withSoundCloudAudio((props) => {
-  const { track, currentTime } = props;
-  console.log(track, currentTime);
+  const { trackTitle,
+  } = props;
+
   return (
     <div className="custom-player">
+
       <PlayButton
-        className="custom-player-btn"
-        onPlayClick={() => {
-          console.log('play button clicked!');
-        }}
         {...props}
       />
-      <h2 className="custom-player-title">
-        {track ? track.title : 'Loading...'}
-      </h2>
-      <Timer
-        className="custom-player-timer"
-        duration={track ? track.duration / 1000 : 0}
-        currentTime={currentTime}
-        {...props}
+      <h2>{trackTitle}</h2>
+      <VolumeControl
+        className={String}
+        buttonClassName={String}
+        rangeClassName={String}
+        volume={Number} // in range 0-1
+        onVolumeChange={Function}
+        onToggleMute={Function}
       />
+      <Progress
+        className={String}
+        innerClassName={String}
+        value={Number} // in range 0-100
+        onSeekTrack={Function}
+      />
+
+      <Timer {...props} />
     </div>
   );
 });
