@@ -4,7 +4,7 @@ import { Router, Link } from '@reach/router';
 import { push } from 'redux-first-history';
 import { PlayButton, Progress, Icons } from 'react-soundplayer/components';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
-import { getTracksFromServer, testOAuth } from './actions/index';
+import { getTracksFromServer, putTokenToStore } from './actions/index';
 import LoginFormAuth from './components/Authentification/Login';
 import RegisterFormHOC from './components/Authentification/Register';
 import Player from './components/Player/Player';
@@ -32,22 +32,24 @@ const hash = window.location.hash.substring(1).split('&').reduce((initial, item)
   return initial;
 }, {});
 
-const App = ({ startAuth, dispatch }) => {
+const App = ({
+  startAuth, dispatch, getTracks, putToken,
+}) => {
   const {
     authEndpoint, clientId, redirectUri, scopes,
   } = Apikey;
   const [token, changeToken] = useState({});
   const _token = hash.access_token;
-  useEffect(dispatch => store.dispatch({ type: 'APP_TOKEN_SPOTIFY_STORE', _token }), []);
+
 
   const tokenToPersist = (_token) => {
     changeToken(_token);
   };
-
+  useEffect(dispatch => store.dispatch(getTracks()), []);
   // create button component with memoized callback
   const LoginSpotify = (dispatch) => {
     const handleClick = useCallback(
-      token => dispatch({ type: 'APP_TOKEN_SPOTIFY_STORE', _token }),
+      token => dispatch(putToken(_token)),
       [],
     );
     return (
@@ -100,9 +102,14 @@ const App = ({ startAuth, dispatch }) => {
     </div>
   );
 };
-const mapStateToProps = ({ appReducer, form }) => ({});
+const mapStateToProps = ({ appReducer, form }) => {
+  const { token } = appReducer;
+  return {
+    token,
+  };
+};
 const mapDispatchToProps = dispatch => ({
   getTracks: () => dispatch(getTracksFromServer),
-  startAuth: () => dispatch(testOAuth),
+  putToken: () => dispatch(putTokenToStore()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

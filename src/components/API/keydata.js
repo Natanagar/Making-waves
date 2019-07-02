@@ -13,4 +13,5 @@ export const Apikey = {
     'user-read-currently-playing',
     'user-read-playback-state',
   ],
+  endpoint: 'https://api.spotify.com/v1/me/player',
 };

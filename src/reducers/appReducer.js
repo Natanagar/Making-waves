@@ -1,13 +1,9 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import {
-  FETCH_TRACKS_PENDING,
   FETCH_TRACKS_START,
   FETCH_TRACKS_SUCCESS,
   FETCH_TRACKS_ERROR,
-  FIRSTAUTH_SPOTIFY_START,
-  FIRSTAUTH_SPOTIFY_SUCCESS,
-  FIRSTAUTH_SPOTIFY_ERROR,
   APP_TOKEN_SPOTIFY_STORE,
 } from '../actions/index';
 
@@ -26,18 +22,18 @@ const appReducer = (state = initialState, action) => {
         ...state,
         token: action._token,
       };
-    case FIRSTAUTH_SPOTIFY_START:
+    case FETCH_TRACKS_START:
       return {
         ...state,
         isAuthStart: true,
       };
-    case FIRSTAUTH_SPOTIFY_ERROR:
+    case FETCH_TRACKS_ERROR:
       return {
         ...state,
         isAuthStart: false,
         error: action.error,
       };
-    case FIRSTAUTH_SPOTIFY_SUCCESS:
+    case FETCH_TRACKS_SUCCESS:
       return {
         ...state,
         isAuthStart: false,
