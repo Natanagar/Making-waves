@@ -3,17 +3,22 @@ import axios from 'axios';
 import { Apikey } from './keydata';
 
 class Api {
-	constructor(endpoint, key, redirect_url, response_type, scope) {
+	constructor(endpoint, key, redirect_url, code, response_type, scope, endpoint_request, grant_type) {
+		this.endpoint_request = endpoint_request;
+		this.grant_type = grant_type;
 		this.endpoint = endpoint;
 		this.response_type = response_type;
 		this.key = key;
 		this.redirect_url = redirect_url;
 		this.scope = scope;
+		this.code = code;
 	}
 	//OAuth
-	firstAuthorization = async (endpoint, key, response_type, redirect_url, scope) => {
-		console.log(endpoint, key, response_type, redirect_url, scope)
-		return await axios.get(`${endpoint}client_id=${key}&response_type=${response_type}&redirect_uri=${redirect_url}&scope=${scope}`);
+	firstAuthorization = async (endpoint_request, code, grant_type, redirect_url) => {
+		console.log(endpoint_request, code, grant_type, redirect_url)
+		return await axios.post(`https://accounts.spotify.com/api/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirect_url}`, {
+			headers: { Authorization : 'MWI4OGRjODIyYmNmNDExOTg2ZGY5Zjk3NzZlNzJjM2Q6YjUzMjUxODRkNjNlNDI2NGIwN2U2ZTMzNTBlYTc2MTY='}
+		});
 	};
 	// fetch data for cross-course
 	getCrossCurrency = async (endpoint) => {

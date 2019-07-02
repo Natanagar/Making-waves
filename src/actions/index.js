@@ -16,7 +16,7 @@ export const FIRSTAUTH_SPOTIFY_SUCCESS = 'FIRSTAUTH_SPOTIFY_SUCCESS';
 export const FIRSTAUTH_SPOTIFY_ERROR = 'FIRSTAUTH_SPOTIFY_ERROR';
 //
 
-export const testOAuth = () => store.dispatch((dispatch) => {
+export const testOAuth = () => (dispatch) => {
   dispatch({ type: 'FIRSTAUTH_SPOTIFY_START' });
   const api = new Api();
   const {
@@ -27,7 +27,7 @@ export const testOAuth = () => store.dispatch((dispatch) => {
     .firstAuthorization(endpoint, key, response_type, redirect_url, scope)
     .then(res => console.log(res.data))
     .catch(err => dispatch({ type: 'FIRSTAUTH_SPOTIFY_ERROR', payload: err }));
-});
+};
 
 export const getTracksFromServer = () => (dispatch) => {
   dispatch({ type: 'FETCH_CURRENCY_PENDING' });

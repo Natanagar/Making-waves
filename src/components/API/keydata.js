@@ -2,13 +2,37 @@ export const Apikey = {
   // spotify
 
   // OAuth
+  endpoint_request: 'https://accounts.spotify.com/api/token',
   key: 'b5325184d63e4264b07e6e3350ea7616',
   endpoint: 'https://accounts.spotify.com/authorize?',
   response_type: 'code',
-  redirect_url: 'http%3A%2F%2Flocalhost%3A3000%2F', // where app will be deployed
+  redirect_url: 'http%3A%2F%2Flocalhost%3A3000%2Fcallback', // where app will be deployed
   scope: 'user-read-private%20user-read-email',
+  grant_type: 'authorization_code',
+  code: 'AQBEPZ37pLtVQyJ6iJ7KeV2r7YPCRTBYZ3b-LzZ-uVEi-V7pikAsqWRD9c9-HI2UA8DqHPxag77dntC9TqRPGARGaZ-fRE7e59usFpNPOf0cWGb2zjxVcUZk31UeqxSdY89izwnYz7IO2c3VVKoTTuwMN9U_dXS741jcpJFg4y24pO6XrKsr655OtOHoXAzOAeunznIkv1553y5eJs4JSsLNikpHqQqMRq7EpY1GcX6p1N-PdmgWj7jv',
+  authorization_code: 'MWI4OGRjODIyYmNmNDExOTg2ZGY5Zjk3NzZlNzJjM2Q6YjUzMjUxODRkNjNlNDI2NGIwN2U2ZTMzNTBlYTc2MTY=',
 
 };
 // spotify
-const id_spotify = '1b88dc822bcf411986df9f9776e72c3d';
+/* const id_spotify = '1b88dc822bcf411986df9f9776e72c3d';
 const client_secret = 'b5325184d63e4264b07e6e3350ea7616';
+//1b88dc822bcf411986df9f9776e72c3d:b5325184d63e4264b07e6e3350ea7616
+ocalhost:3000/callback?code=AQDc1yg2_XraDV9JuOp4ASNRQNT8TcR62eRuIKRq8GiZQxEEfCPi791fD53b1F9USXHnfByLEqn6Zp9LxExgCrZFAUn51TdHkaVq4UyiHgIlLvq46DPewy2vetON5bN41-AIscw7_5IHKTj937jg0Bwga2fp_rz3-6MMmtOWZ27gwegDyMjRmE6O7yX5M3P-Z7IIU1LWDnRiEngERHoBTzc1H9Ai7TmFyZU8OFrH8MvqZni3uwoJ6A12
+
+curl -H "Authorization: Basic MWI4OGRjODIyYmNmNDExOTg2ZGY5Zjk3NzZlNzJjM2Q6YjUzMjUxODRkNjNlNDI2NGIwN2U2ZTMzNTBlYTc2MTY=" -d grant_type=authorization_code -d code=AQBEPZ37pLtVQyJ6iJ7KeV2r7YPCRTBYZ3b-LzZ-uVEi-V7pikAsqWRD9c9-HI2UA8DqHPxag77dntC9TqRPGARGaZ-fRE7e59usFpNPOf0cWGb2zjxVcUZk31UeqxSdY89izwnYz7IO2c3VVKoTTuwMN9U_dXS741jcpJFg4y24pO6XrKsr655OtOHoXAzOAeunznIkv1553y5eJs4JSsLNikpHqQqMRq7EpY1GcX6p1N-PdmgWj7jv -d redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback https://accounts.spotify.com/api/token
+
+https://accounts.spotify.com/api/token?grant_type=authorization_code&code=AQBGePhVea_XocLLUPuK40F_RtIcCEtbfGzlIU_zjts1onnZYhJUoUSwCAYwl6-vMyJRyo1GgufufuRJ4UYJ8G_cuiuN3o3rqqSUMgFbhjyuUn5EYT8VH4359LloGwRjDF-BGMouVw4CU1KQ-wLPDYGTWTYWZZfQGVfps917ZNxkVHvx-HkIBJEwATI4IE2ZUbriBgv7OK_dFFxWH2_vvytl14PF4AXFxHyL1hB9-0IJ6084gJxtKMqA&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback
+
+
+curl -H "Authorization: Basic MWI4OGRjODIyYmNmNDExOTg2ZGY5Zjk3NzZlNzJjM2Q6YjUzMjUxODRkNjNlNDI2NGIwN2U2ZTMzNTBlYTc2MTY=" -d grant_type=authorization_code -d code=AQBGePhVea_XocLLUPuK40F_RtIcCEtbfGzlIU_zjts1onnZYhJUoUSwCAYwl6-vMyJRyo1GgufufuRJ4UYJ8G_cuiuN3o3rqqSUMgFbhjyuUn5EYT8VH4359LloGwRjDF-BGMouVw4CU1KQ-wLPDYGTWTYWZZfQGVfps917ZNxkVHvx-HkIBJEwATI4IE2ZUbriBgv7OK_dFFxWH2_vvytl14PF4AXFxHyL1hB9-0IJ6084gJxtKMqA -d redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback https://accounts.spotify.com/api/token
+
+//https://accounts.spotify.com/authorize?client_id=1b88dc822bcf411986df9f9776e72c3d&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=user-read-private%20user-read-email&state=34fFs29kd09
+//http://localhost:3000/callback?code=AQBGePhVea_XocLLUPuK40F_RtIcCEtbfGzlIU_zjts1onnZYhJUoUSwCAYwl6-vMyJRyo1GgufufuRJ4UYJ8G_cuiuN3o3rqqSUMgFbhjyuUn5EYT8VH4359LloGwRjDF-BGMouVw4CU1KQ-wLPDYGTWTYWZZfQGVfps917ZNxkVHvx-HkIBJEwATI4IE2ZUbriBgv7OK_dFFxWH2_vvytl14PF4AXFxHyL1hB9-0IJ6084gJxtKMqA&state=34fFs29kd09 */
+// http://localhost:3000/callback?code=AQBEPZ37pLtVQyJ6iJ7KeV2r7YPCRTBYZ3b-LzZ-uVEi-V7pikAsqWRD9c9-HI2UA8DqHPxag77dntC9TqRPGARGaZ-fRE7e59usFpNPOf0cWGb2zjxVcUZk31UeqxSdY89izwnYz7IO2c3VVKoTTuwMN9U_dXS741jcpJFg4y24pO6XrKsr655OtOHoXAzOAeunznIkv1553y5eJs4JSsLNikpHqQqMRq7EpY1GcX6p1N-PdmgWj7jv&state=34fFs29kd09
+
+
+// MWI4OGRjODIyYmNmNDExOTg2ZGY5Zjk3NzZlNzJjM2Q6YjUzMjUxODRkNjNlNDI2NGIwN2U2ZTMzNTBlYTc2MTY=" -d grant_type=authorization_code -d code=AQBEPZ37pLtVQyJ6iJ7KeV2r7YPCRTBYZ3b-LzZ-uVEi-V7pikAsqWRD9c9-HI2UA8DqHPxag77dntC9TqRPGARGaZ-fRE7e59usFpNPOf0cWGb2zjxVcUZk31UeqxSdY89izwnYz7IO2c3VVKoTTuwMN9U_dXS741jcpJFg4y24pO6XrKsr655OtOHoXAzOAeunznIkv1553y5eJs4JSsLNikpHqQqMRq7EpY1GcX6p1N-PdmgWj7jv -d redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback https://accounts.spotify.com/api/token
+// {"access_token":"BQBXQu1nTCL4vXyydsSz_z3APnO7YgUNDiDNyRy9ISFOCzQVAsi2MMyBJnrOR-8Z7s554M4iJP26Qn21xoRPlNF0lH46ENdBw4Oy7Uxz5HW6zA7SIfFGsEWWTP4D32LF-E0HQoXBi0wmDeBpX6pkgkjI_7uxG6M8jS3EtXZPUMF63p1La7lz",
+
+// "token_type":"Bearer","expires_in":3600,"refresh_token":"AQBwxuncWZ-afi2M2SqGTdSqRgSAFSPNsEyMgPpnuPibDMPbWijDEGuBgYDZLKHBW6xPqMtojg1PgT1JfbnsMwY98vS0-dUoZwtrS3nFytHiYFE_xvka7w3yPnj5o-Dzfv42xA","scope":"user-read-email user-read-private"}Nataliias-MacBook-Pro:Authentification ciemna_noc$
+// BQBXQu1nTCL4vXyydsSz_z3APnO7YgUNDiDNyRy9ISFOCzQVAsi2MMyBJnrOR-8Z7s554M4iJP26Qn21xoRPlNF0lH46ENdBw4Oy7Uxz5HW6zA7SIfFGsEWWTP4D32LF-E0HQoXBi0wmDeBpX6pkgkjI_7uxG6M8jS3EtXZPUMF63p1La7lz","token_type":"Bearer","expires_in":3600,"refresh_token":"AQBwxuncWZ-afi2M2SqGTdSqRgSAFSPNsEyMgPpnuPibDMPbWijDEGuBgYDZLKHBW6xPqMtojg1PgT1JfbnsMwY98vS0-dUoZwtrS3nFytHiYFE_xvka7w3yPnj5o-Dzfv42xA

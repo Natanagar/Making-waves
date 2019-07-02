@@ -25,7 +25,7 @@ const {
 // soundcloud
 const clientId = 'BeGVhOrGmfboy1LtiHTQF6Ejpt9ULJCI';
 const resolveUrl = 'https://soundcloud.com/levohotnik/knockin-on-heavens-door';
-const streamUrl = 'https://drive.google.com/open?id=0B20VN4oA2BAAMEd0RUdsajZoaURQWUhPQ2tQcUx3Z0w5b0dr';
+const streamUrl = 'https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86';
 const trackTitle = 'Достучаться до небес';
 
 
