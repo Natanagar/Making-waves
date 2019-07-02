@@ -8,21 +8,24 @@ import {
   FIRSTAUTH_SPOTIFY_START,
   FIRSTAUTH_SPOTIFY_SUCCESS,
   FIRSTAUTH_SPOTIFY_ERROR,
-
+  APP_TOKEN_SPOTIFY_STORE,
 } from '../actions/index';
 
 const initialState = Object.freeze({
   isLoading: false,
   isAuthStart: false,
+  token: null,
   error: null,
   data: [],
-
-
 });
-
 
 const appReducer = (state = initialState, action) => {
   switch (action.type) {
+    case APP_TOKEN_SPOTIFY_STORE:
+      return {
+        ...state,
+        token: action._token,
+      };
     case FIRSTAUTH_SPOTIFY_START:
       return {
         ...state,
@@ -50,6 +53,5 @@ const rootReducer = combineReducers({
   appReducer,
   // form reducer
   form: formReducer,
-
 });
 export default rootReducer;

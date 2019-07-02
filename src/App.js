@@ -8,23 +8,16 @@ import { getTracksFromServer, testOAuth } from './actions/index';
 import LoginFormAuth from './components/Authentification/Login';
 import RegisterFormHOC from './components/Authentification/Register';
 import Player from './components/Player/Player';
-import { reachHistory } from './store/index';
+import { Apikey } from './components/API/keydata';
+import store, { reachHistory } from './store/index';
+
+
 import './App.css';
 
-const clientId = '1b88dc822bcf411986df9f9776e72c3d';
-const redirectUri = 'http://localhost:3000/callback';
-const scopes = [
-  'streaming',
-  'user-read-recently-played',
-  'playlist-modify-public',
-  'playlist-read-collaborative',
-  'user-read-currently-playing',
-  'user-read-playback-state',
-];
+
 const trackTitle = 'Достучаться до небес';
-const authEndpoint = 'https://accounts.spotify.com/authorize';
 const streamUrl =	'https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86';
-console.log(clientId, redirectUri, scopes);
+
 
 const {
   SoundCloudLogoSVG, PlayIconSVG, PauseIconSVG, NextIconSVG, PrevIconSVG,
@@ -40,22 +33,23 @@ const hash = window.location.hash.substring(1).split('&').reduce((initial, item)
 }, {});
 
 const App = ({ startAuth, dispatch }) => {
+  const {
+    authEndpoint, clientId, redirectUri, scopes,
+  } = Apikey;
   const [token, changeToken] = useState({});
   const _token = hash.access_token;
-  useEffect(() => {
-    console.log(_token);
-  });
+  useEffect(dispatch => store.dispatch({ type: 'APP_TOKEN_SPOTIFY_STORE', _token }), []);
+
+  const tokenToPersist = (_token) => {
+    changeToken(_token);
+  };
 
   // create button component with memoized callback
-  const LoginSpotify = ({ dispatch, _token }) => {
+  const LoginSpotify = (dispatch) => {
     const handleClick = useCallback(
-      () => {
-        console.log(_token);
-      },
+      token => dispatch({ type: 'APP_TOKEN_SPOTIFY_STORE', _token }),
       [],
     );
-
-
     return (
       <div>
         <a
@@ -67,15 +61,7 @@ const App = ({ startAuth, dispatch }) => {
       </div>
     );
   };
-  const tokenToPersist = () => {
-    changeToken(_token);
-  };
-  /* if (_token) {
-    changeToken(_token);
-  } */
-  useEffect(() => tokenToPersist(_token),
-  /* startAuth(), */ []);
-  console.log(token);
+
   return (
     <div>
       <div>
