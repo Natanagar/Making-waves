@@ -67,12 +67,15 @@ const App = ({ startAuth, dispatch }) => {
       </div>
     );
   };
-
-  if (_token) {
-    // changeToken(_token);
-  }
-  useEffect(() => startAuth(), []);
-  console.log(`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`);
+  const tokenToPersist = () => {
+    changeToken(_token);
+  };
+  /* if (_token) {
+    changeToken(_token);
+  } */
+  useEffect(() => tokenToPersist(_token),
+  /* startAuth(), */ []);
+  console.log(token);
   return (
     <div>
       <div>
@@ -80,10 +83,12 @@ const App = ({ startAuth, dispatch }) => {
           <div>
             <nav>Audio player</nav>
             {/* <Link to="/login"> */}
+
             <ul>
               {
                 <li>
-                  <LoginSpotify />
+                  {token && (<LoginSpotify />) }
+
                 </li>
                 }
               {/* <li>Login</li> */}
