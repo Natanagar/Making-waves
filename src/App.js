@@ -45,11 +45,13 @@ const App = ({
   const tokenToPersist = (_token) => {
     changeToken(_token);
   };
-  useEffect(dispatch => store.dispatch(getTracks()), []);
+  useEffect(() => store.dispatch({ type: 'APP_TOKEN_SPOTIFY_STORE', _token }), []);
+  useEffect(() => store.dispatch(getTracks()), []);
   // create button component with memoized callback
   const LoginSpotify = (dispatch) => {
     const handleClick = useCallback(
-      token => dispatch(putToken(_token)),
+      // hardcore
+      _token => store.dispatch({ type: 'APP_TOKEN_SPOTIFY_STORE', _token }),
       [],
     );
     return (
@@ -104,12 +106,13 @@ const App = ({
 };
 const mapStateToProps = ({ appReducer, form }) => {
   const { token } = appReducer;
+  console.log(token);
   return {
     token,
   };
 };
 const mapDispatchToProps = dispatch => ({
   getTracks: () => dispatch(getTracksFromServer),
-  putToken: () => dispatch(putTokenToStore()),
+  putToken: token => dispatch(putTokenToStore(token)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

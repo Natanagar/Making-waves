@@ -11,39 +11,17 @@ export const FETCH_TRACKS_ERROR = 'FETCH_TRACKS_ERROR';
 // token from Spotify to store
 export const APP_TOKEN_SPOTIFY_STORE = 'APP_TOKEN_SPOTIFY_STORE';
 
-/* getCurrentlyPlaying(token) {
-  // Make a call using the token
-  $.ajax({
-    url: "https://api.spotify.com/v1/me/player",
-    type: "GET",
-    beforeSend: (xhr) => {
-      xhr.setRequestHeader("Authorization", "Bearer " + token);
-    },
-    success: (data) => {
-      this.setState({
-        item: data.item,
-        is_playing: data.is_playing,
-        progress_ms: data.progress_ms,
-      });
-    }
-  });
-} */
 export const getTracksFromServer = endpoint => (dispatch) => {
   dispatch({ type: 'FETCH_TRACKS_START' });
   const api = new Api();
   api
-    .fetchTracksFromSpotify(endpoint)
-    .then(
-      res => console.log(
-          res.data,
-        ), /* dispatch({
+    .fetchTracksFromSpotify()
+    .then(res => dispatch({
         type: 'FETCH_TRACKS_SUCCESS',
         payload: {
-          tracks: res.data.rates,
-          // data: format(res.data.date, 'DD.MM.YYYY'),
+          tracks: res.data,
         },
-      }), */
-    )
+      }),)
     .catch(err => dispatch({ type: 'FETCH_TRACKS_ERROR', payload: err }));
 };
 
