@@ -12,7 +12,7 @@ const initialState = Object.freeze({
   isAuthStart: false,
   token: null,
   error: null,
-  data: [],
+  tracks: [],
 });
 
 const appReducer = (state = initialState, action) => {
@@ -37,7 +37,7 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthStart: false,
-        data: action.payload.data,
+        tracks: action.payload.tracks,
       };
 
     default:

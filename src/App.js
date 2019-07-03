@@ -2,26 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { Router, Link } from '@reach/router';
 import { push } from 'redux-first-history';
-import { PlayButton, Progress, Icons } from 'react-soundplayer/components';
-import { withSoundCloudAudio } from 'react-soundplayer/addons';
 import { getTracksFromServer, putTokenToStore } from './actions/index';
 import LoginFormAuth from './components/Authentification/Login';
 import RegisterFormHOC from './components/Authentification/Register';
-import Player from './components/Player/Player';
+import { Player } from './components/Player/Player';
 import { Apikey } from './components/API/keydata';
 import store, { reachHistory } from './store/index';
 
 
 import './App.css';
 
-
-const trackTitle = 'Достучаться до небес';
-const streamUrl =	'https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86';
-
-
-const {
-  SoundCloudLogoSVG, PlayIconSVG, PauseIconSVG, NextIconSVG, PrevIconSVG,
-} = Icons;
 
 // Get the hash of the url
 const hash = window.location.hash.substring(1).split('&').reduce((initial, item) => {
@@ -33,11 +23,12 @@ const hash = window.location.hash.substring(1).split('&').reduce((initial, item)
 }, {});
 
 const App = ({
-  startAuth, dispatch, getTracks, putToken,
+  startAuth, dispatch, getTracks, putToken, items,
 }) => {
   const {
     authEndpoint, clientId, redirectUri, scopes,
   } = Apikey;
+  console.log(items[0]);
   const [token, changeToken] = useState({});
   const _token = hash.access_token;
 
@@ -92,23 +83,23 @@ const App = ({
         <RegisterFormHOC path="register" />
       </Router>
       <div>
-        <Player
-          trackTitle={trackTitle}
-          preloadType="metadata"
-          streamUrl={streamUrl}
-          onReady={() => {
-					  console.log('player url ready!');
-          }}
-        />
+        <ul>
+          {items.map(item => console.log(item.artists[0].name))}
+        </ul>
+        <h4>{items[0].name}</h4>
+        <img src={items[0].images[0].url} />
+        <Player />
       </div>
     </div>
   );
 };
 const mapStateToProps = ({ appReducer, form }) => {
-  const { token } = appReducer;
-  console.log(token);
+  const { token, tracks } = appReducer;
+  const { items } = tracks;
+  console.log(tracks.items[0]);
   return {
     token,
+    items,
   };
 };
 const mapDispatchToProps = dispatch => ({
