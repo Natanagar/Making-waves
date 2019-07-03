@@ -28,7 +28,7 @@ const App = ({
   const {
     authEndpoint, clientId, redirectUri, scopes,
   } = Apikey;
-  console.log(items[0]);
+  // console.log(items[0]);
   const [token, changeToken] = useState({});
   const _token = hash.access_token;
 
@@ -84,7 +84,7 @@ const App = ({
       </Router>
       <div>
         <ul>
-          {items.map(item => console.log(item.artists[0].name))}
+          { items.map(item => console.log(item.artists[0].name)) }
         </ul>
         <h4>{items[0].name}</h4>
         <img src={items[0].images[0].url} />
@@ -96,7 +96,7 @@ const App = ({
 const mapStateToProps = ({ appReducer, form }) => {
   const { token, tracks } = appReducer;
   const { items } = tracks;
-  console.log(tracks.items[0]);
+  // console.log(tracks);
   return {
     token,
     items,
