@@ -5,7 +5,7 @@ import { push } from 'redux-first-history';
 import { getTracksFromServer, putTokenToStore } from './actions/index';
 import LoginFormAuth from './components/Authentification/Login';
 import RegisterFormHOC from './components/Authentification/Register';
-import { Player } from './components/Player/Player';
+import Player from './components/Player/Player';
 import { Apikey } from './components/API/keydata';
 import store, { reachHistory } from './store/index';
 
@@ -21,6 +21,7 @@ const hash = window.location.hash.substring(1).split('&').reduce((initial, item)
   }
   return initial;
 }, {});
+
 
 const App = ({
   startAuth, dispatch, getTracks, putToken, items,
@@ -81,13 +82,13 @@ const App = ({
       </Router>
       <div>
         <ul>
-          {
-            items.map((item, id) => (
+          { items
+            ? items.map((item, id) => (
               <li key={id}>
                 <img src={item.images[0].url} alt={item.name} />
                 <h3>{item.name}</h3>
               </li>
-            ))
+            )) : null
         }
 
         </ul>

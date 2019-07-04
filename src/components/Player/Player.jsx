@@ -4,8 +4,9 @@ import store from '../../store/index';
 import { startPlayTrackFromSpotify } from '../../actions/index';
 
 
-export const Player = ({ dispatch, items, playTrack }) => {
-  // useEffect(() => store.dispatch(playTrack()), []);
+const Player = (props) => {
+  console.log(props);
+  // useEffect(() => dispatch(playTrack()), []);
   const option = {
     duration_ms: 0,
     is_playing: 'Paused',
@@ -27,7 +28,7 @@ export const Player = ({ dispatch, items, playTrack }) => {
         <div className="now-playing__side">
           <div className="now-playing__name">Hura</div>
           <div className="now-playing__artist">
-            {items}
+            {/* {items} */}
           </div>
           <div className="now-playing__status">
             {option.is_playing ? 'Playing' : 'Paused'}
@@ -46,16 +47,14 @@ export const Player = ({ dispatch, items, playTrack }) => {
 };
 
 
-const mapStateToProps = ({ appReducer, playerReducer }) => {
-  console.log(playerReducer);
-  const { token, tracks } = appReducer;
-  const { items } = tracks;
+const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    items,
+
   };
 };
 const mapDispatchToProps = dispatch => ({
-  playTrack: () => dispatch(startPlayTrackFromSpotify),
+  playTrack: url => dispatch(startPlayTrackFromSpotify(url)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);
