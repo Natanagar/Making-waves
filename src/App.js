@@ -5,7 +5,8 @@ import { push } from 'redux-first-history';
 import { getTracksFromServer, putTokenToStore } from './actions/index';
 import LoginFormAuth from './components/Authentification/Login';
 import RegisterFormHOC from './components/Authentification/Register';
-import Player from './components/Player/Player';
+import InternalPlayer from './components/Player/Player';
+import { CustomPlayer } from './components/Player/CustomPlayer';
 import { Apikey } from './components/API/keydata';
 import store, { reachHistory } from './store/index';
 
@@ -26,8 +27,6 @@ const hash = window.location.hash.substring(1).split('&').reduce((initial, item)
 const App = ({
   startAuth, dispatch, getTracks, putToken, items,
 }) => {
-  // items.map(item => console.log(Object.entries(item.external_urls)[0][1]));
-
   const {
     authEndpoint, clientId, redirectUri, scopes,
   } = Apikey;
@@ -77,10 +76,21 @@ const App = ({
         </header>
       </div>
       <Router history={reachHistory}>
-        <LoginFormAuth path="login" />
-        <RegisterFormHOC path="register" />
+        <InternalPlayer
+          path="spotify"
+        />
+        <CustomPlayer path="player" />
+
       </Router>
       <div>
+        <Link to="player">
+          <button />
+Player
+        </Link>
+        <Link to="spotify">
+          <button />
+Spotify
+        </Link>
         <ul>
           { items
             ? items.map((item, id) => (
@@ -92,9 +102,8 @@ const App = ({
         }
 
         </ul>
-        <Player
-          {...items}
-        />
+
+
       </div>
     </div>
   );

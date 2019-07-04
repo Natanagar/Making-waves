@@ -1,50 +1,34 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import Iframe from 'react-iframe';
 import store from '../../store/index';
 import { startPlayTrackFromSpotify } from '../../actions/index';
 
 
-const Player = ({ dispatch, playTrack, items }) => {
-  items.map(item => console.log(Object.entries(item.external_urls)[0][1]));
+const InternalPlayer = ({ dispatch, playTrack, items }) => {
+  items.map(item => console.log(item.artists[0].external_urls.spotify));
   const endpoint = items[0].external_urls.spotify;
   console.log(endpoint);
   useEffect(() => store.dispatch(playTrack(endpoint)), []);
-  const option = {
-    duration_ms: 0,
-    is_playing: 'Paused',
-    progress_ms: 0,
-  };
-  const backgroundStyles = {
-    // backgroundImage: `url(${itemsSp})`,
-  };
 
-  const progressBarStyles = {
-    width: `${option.progress_ms * 100 / option.duration_ms}%`,
-  };
   return (
-    <div className="App">
-      <div className="main-wrapper">
-        <div className="now-playing__img">
-          {/* <img src={itemsSp.images[0].url} /> */}
-        </div>
-        <div className="now-playing__side">
-          <div className="now-playing__name">Hura</div>
-          <div className="now-playing__artist">
-            IFRAME
-            <iframe src="https://open.spotify.com/embed/track/1q8gelFgFYUwoWpQV7WNCe" width="300" height="380" frameBorder="0" allowTransparency="true" allow="encrypted-media" />
-          </div>
-          <div className="now-playing__status">
-            {option.is_playing ? 'Playing' : 'Paused'}
-          </div>
-          <div className="progress">
-            <div
-              className="progress__bar"
-              style={progressBarStyles}
-            />
-          </div>
-        </div>
-        <div className="background" style={backgroundStyles} />
-      </div>
+    <div className="player">
+      <Iframe src="https://open.spotify.com/embed/album/6Ad1E9vl75ZB3Ir87zwXIJ" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media" />
+      <ul>
+        { items
+          ? items.map((item, id) => {
+            const url = items[0].external_urls.spotify;
+            return (
+              <li key={id}>
+                <img src={item.images[0].url} alt={item.name} />
+                <h3>{item.name}</h3>
+
+              </li>
+            );
+          }) : null
+        }
+
+      </ul>
     </div>
   );
 };
@@ -62,4 +46,4 @@ const mapDispatchToProps = dispatch => ({
   playTrack: endpoint => dispatch(startPlayTrackFromSpotify),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Player);
+export default connect(mapStateToProps, mapDispatchToProps)(InternalPlayer);
