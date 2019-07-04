@@ -11,6 +11,15 @@ export const FETCH_TRACKS_ERROR = 'FETCH_TRACKS_ERROR';
 // token from Spotify to store
 export const APP_TOKEN_SPOTIFY_STORE = 'APP_TOKEN_SPOTIFY_STORE';
 
+// play track from Spotify
+export const PLAYER_TRACK_SPOTIFY_START = 'PLAYER_TRACK_SPOTIFY_START';
+export const PLAYER_TRACK_SPOTIFY_FETCH_START = 'PLAYER_TRACK_SPOTIFY_FETCH_START';
+export const PLAYER_TRACK_SPOTIFY_FETCH_ERROR = 'PLAYER_TRACK_SPOTIFY_FETCH_ERROR';
+export const PLAYER_TRACK_SPOTIFY_FETCH_SUCCESS = 'PLAYER_TRACK_SPOTIFY_FETCH_SUCCESS';
+export const PLAYER_TRACK_SPOTIFY_PAUSE = 'PLAYER_TRACK_SPOTIFY_PAUSE';
+export const PLAYER_TRACK_SPOTIFY_PREVIOUS_TRACK = 'PLAYER_TRACK_SPOTIFY_PREVIOUS_TRACK';
+export const PLAYER_TRACK_SPOTIFY_NEXT_TRACK = 'PLAYER_TRACK_SPOTIFY_NEXT_TRACK';
+
 export const getTracksFromServer = endpoint => (dispatch) => {
   dispatch({ type: 'FETCH_TRACKS_START' });
   const api = new Api();
@@ -23,6 +32,15 @@ export const getTracksFromServer = endpoint => (dispatch) => {
         },
       }),)
     .catch(err => dispatch({ type: 'FETCH_TRACKS_ERROR', payload: err }));
+};
+
+export const startPlayTrackFromSpotify = endpoint => (dispatch) => {
+  dispatch({ type: PLAYER_TRACK_SPOTIFY_FETCH_START });
+  const api = new Api();
+  api
+    .playTrackFromSpotify()
+    .then(res => console.log(res.data))
+    .catch(err => dispatch({ type: 'PLAYER_TRACK_SPOTIFY_FETCH_ERROR', payload: err }));
 };
 
 export const putTokenToStore = token => ({

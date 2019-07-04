@@ -25,10 +25,11 @@ const hash = window.location.hash.substring(1).split('&').reduce((initial, item)
 const App = ({
   startAuth, dispatch, getTracks, putToken, items,
 }) => {
+  // items.map(item => console.log(Object.entries(item.external_urls)[0][1]));
+
   const {
     authEndpoint, clientId, redirectUri, scopes,
   } = Apikey;
-  // console.log(items[0]);
   const [token, changeToken] = useState({});
   const _token = hash.access_token;
 
@@ -63,8 +64,6 @@ const App = ({
         <header>
           <div>
             <nav>Audio player</nav>
-            {/* <Link to="/login"> */}
-
             <ul>
               {
                 <li>
@@ -72,9 +71,7 @@ const App = ({
 
                 </li>
                 }
-              {/* <li>Login</li> */}
             </ul>
-            {/* </Link> */}
           </div>
         </header>
       </div>
@@ -84,11 +81,19 @@ const App = ({
       </Router>
       <div>
         <ul>
-          { items.map(item => console.log(item.artists[0].name)) }
+          {
+            items.map((item, id) => (
+              <li key={id}>
+                <img src={item.images[0].url} alt={item.name} />
+                <h3>{item.name}</h3>
+              </li>
+            ))
+        }
+
         </ul>
-        <h4>{items[0].name}</h4>
-        <img src={items[0].images[0].url} />
-        <Player />
+        <Player
+          {...items}
+        />
       </div>
     </div>
   );
@@ -96,7 +101,6 @@ const App = ({
 const mapStateToProps = ({ appReducer, form }) => {
   const { token, tracks } = appReducer;
   const { items } = tracks;
-  // console.log(tracks);
   return {
     token,
     items,

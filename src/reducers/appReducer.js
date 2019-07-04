@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import { playerReducer } from './playerReducer';
 import {
   FETCH_TRACKS_START,
   FETCH_TRACKS_SUCCESS,
@@ -47,6 +48,7 @@ const appReducer = (state = initialState, action) => {
 
 const rootReducer = combineReducers({
   appReducer,
+  playerReducer,
   // form reducer
   form: formReducer,
 });
