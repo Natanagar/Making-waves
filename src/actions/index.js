@@ -26,20 +26,21 @@ export const getTracksFromServer = endpoint => (dispatch) => {
   api
     .fetchTracksFromSpotify()
     .then(res => dispatch({
-        type: 'FETCH_TRACKS_SUCCESS',
-        payload: {
-          tracks: res.data,
-        },
-      }),)
+      type: 'FETCH_TRACKS_SUCCESS',
+      payload: {
+        tracks: res.data,
+      },
+    }))
     .catch(err => dispatch({ type: 'FETCH_TRACKS_ERROR', payload: err }));
 };
 
 export const startPlayTrackFromSpotify = endpoint => (dispatch) => {
   dispatch({ type: PLAYER_TRACK_SPOTIFY_FETCH_START });
+  console.log(endpoint);
   const api = new Api();
   api
-    .playTrackFromSpotify()
-    .then(res => console.log(res.data))
+    .playTrackFromSpotify(endpoint)
+    .then(res => console.log(res))
     .catch(err => dispatch({ type: 'PLAYER_TRACK_SPOTIFY_FETCH_ERROR', payload: err }));
 };
 

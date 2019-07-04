@@ -25,10 +25,13 @@ class Api {
 	};
 	playTrackFromSpotify = async (endpoint) => {
 		const tokenSpotify = store.getState().appReducer.token;
-		const headers = {
-			Authorization: `Bearer ${tokenSpotify}`
-		};
-		return await axios.put('https://api.spotify.com/v1/artists/1vCWHaC5f2uS3yhpwWbIA6/player/play', { headers });
+		const headers = new Headers({
+			'Accept' : "text/html",
+			'Authorization': `Bearer ${tokenSpotify}`,
+			'Content-Type' : "text/html",
+			'Access-Control-Allow-Origin' : "<origin>"
+		});
+		return await fetch('https://open.spotify.com/album/6Ad1E9vl75ZB3Ir87zwXIJ', { headers });
 	};
 }
 

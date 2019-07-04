@@ -4,9 +4,11 @@ import store from '../../store/index';
 import { startPlayTrackFromSpotify } from '../../actions/index';
 
 
-const Player = (props) => {
-  console.log(props);
-  // useEffect(() => dispatch(playTrack()), []);
+const Player = ({ dispatch, playTrack, items }) => {
+  items.map(item => console.log(Object.entries(item.external_urls)[0][1]));
+  const endpoint = items[0].external_urls.spotify;
+  console.log(endpoint);
+  useEffect(() => store.dispatch(playTrack(endpoint)), []);
   const option = {
     duration_ms: 0,
     is_playing: 'Paused',
@@ -28,7 +30,8 @@ const Player = (props) => {
         <div className="now-playing__side">
           <div className="now-playing__name">Hura</div>
           <div className="now-playing__artist">
-            {/* {items} */}
+            IFRAME
+            <iframe src="https://open.spotify.com/embed/track/1q8gelFgFYUwoWpQV7WNCe" width="300" height="380" frameBorder="0" allowTransparency="true" allow="encrypted-media" />
           </div>
           <div className="now-playing__status">
             {option.is_playing ? 'Playing' : 'Paused'}
@@ -47,14 +50,16 @@ const Player = (props) => {
 };
 
 
-const mapStateToProps = (state) => {
-  console.log(state);
+const mapStateToProps = ({ appReducer }) => {
+  const { tracks } = appReducer;
+  const { items } = tracks;
+  console.log(items);
   return {
-
+    items,
   };
 };
 const mapDispatchToProps = dispatch => ({
-  playTrack: url => dispatch(startPlayTrackFromSpotify(url)),
+  playTrack: endpoint => dispatch(startPlayTrackFromSpotify),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);
