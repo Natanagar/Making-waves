@@ -52,7 +52,8 @@ const App = ({
           className="login"
           href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`}
         >
-											Login to Spotify
+          Login to Spotify
+
         </a>
       </div>
     );
@@ -62,22 +63,21 @@ const App = ({
     <div>
       <div>
         <header>
-          <div>
-            <nav>Audio player</nav>
-            <ul>
+          <nav>Audio player</nav>
+          <ul>
               {
                 <li>
-                  {token && (<LoginSpotify />) }
+                  {token && (<LoginSpotify className="login" />) }
 
                 </li>
                 }
             </ul>
-          </div>
         </header>
       </div>
       <Router history={reachHistory}>
         <InternalPlayer
           path="spotify"
+          {...items}
         />
         <CustomPlayer path="player" />
 
@@ -91,19 +91,6 @@ Player
           <button />
 Spotify
         </Link>
-        <ul>
-          { items
-            ? items.map((item, id) => (
-              <li key={id}>
-                <img src={item.images[0].url} alt={item.name} />
-                <h3>{item.name}</h3>
-              </li>
-            )) : null
-        }
-
-        </ul>
-
-
       </div>
     </div>
   );

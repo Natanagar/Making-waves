@@ -1,22 +1,19 @@
 import {
-  PLAYER_TRACK_SPOTIFY_START,
-  PLAYER_TRACK_SPOTIFY_FETCH_ERROR,
-  PLAYER_TRACK_SPOTIFY_FETCH_SUCCESS,
-  PLAYER_TRACK_SPOTIFY_PAUSE,
-  PLAYER_TRACK_SPOTIFY_PREVIOUS_TRACK,
-  PLAYER_TRACK_SPOTIFY_NEXT_TRACK,
+  PLAYER_UPLOAD_TRACK_START,
+  PLAYER_UPLOAD_TRACK_SUCCESS,
+  PLAYER_UPLOAD_TRACK_PLAY,
+  PLAYER_UPLOAD_TRACK_PAUSE,
 
 } from '../actions/index';
-
+// initial state
 const initialState = Object.freeze({
   track: null,
-  error: null,
   isLoading: false,
 });
 
 export const playerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PLAYER_TRACK_SPOTIFY_START:
+    case PLAYER_UPLOAD_TRACK_START:
       return {
         ...state,
         isLoading: true,
