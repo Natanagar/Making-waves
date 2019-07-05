@@ -3,16 +3,15 @@ Make an audio player using html and Vanilla JS/TypeScript (TS will be a plus). T
 We will evaluate your player in terms of the architectural solution, performance, and readability. Build system will be a plus. Use your imagination and have fun!
 
 ## How can I use this app?
-Create work directory in the terminal with mkdir. Change work directory in the terminal with command cd. 
-Clone this project to work directory use [__git clone__ ](https://github.com/Natanagar/Making-waves.git). Next step you can use command yarn install or npm install, After that you can run the application with command yarn start or npm start and open address http://localhost:3000/ or http://localhost:3001/ (if you use port 3000). 
+You have to create work directory in the terminal with mkdir. Next you'll change work directory in the terminal with command cd. Later you'll clone this project to work directory use [__git clone__ ](https://github.com/Natanagar/Making-waves.git). In the end you'll fire the app with __yarn install__ and __yarn start__ in the terminal and open address http://localhost:3000/ or http://localhost:3001/ (if your port 3000 is busied). 
 
 ## How it works? 
 
-App use spotify API. You need create login in the Spotify  if you want to listen sometracks. Will be better if you fetch your playlist from Spotify account, but it is not only one option. You can upload track from your computer. For this option please use link __player__. If you want listen tracks from Spotify firstly you'll need to login to Spotify and use link __spotify__ you can listen music.
+App uses spotify API. You have to create account in Spotify. It's very common because every day you can listen music with Spotify. Next step will be fetching your playlist from Spotify to the app. You can upload tracks from your computer. This option works if you click on link __player__. If you want to listen tracks from Spotify firstly you'll need to login to Spotify and after them use link __spotify__.
  
 
 ### API
-Spotify API is implemented to app. Use Implicit flow in OAuth2. App was created with React-Redux(redux-thunk).
+__Spotify__ API is implemented to app. I use Implicit flow when I created OAuth2 authentification. App was created with React-Redux(redux-thunk).
 
 ##### Contrubution
 This is test task.
