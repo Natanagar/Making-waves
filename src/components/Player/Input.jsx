@@ -1,10 +1,11 @@
 import React from 'react';
 
-export const InputTrack = () => (
+export const InputTrack = ({ handleChangeInput }) => (
+
   <div>
-          <form>
-              <label htmlFor="input" placeHolder="choose track from your computer" />
-              <input type="file" accept=".mp3,audio/*" />
-            </form>
-        </div>
+    <form>
+      <label htmlFor="input" />
+      <input onChange={handleChangeInput} type="file" accept=".mp3,audio/*" />
+    </form>
+  </div>
 );

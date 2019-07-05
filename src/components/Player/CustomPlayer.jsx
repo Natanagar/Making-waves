@@ -1,35 +1,34 @@
-import React from 'react';
-import { withSoundCloudAudio } from 'react-soundplayer/addons';
-import { InputTrack } from './Input'
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { InputTrack } from './Input';
 
-const clientId = 'YOUR CLIENT ID';
-const resolveUrl = 'https://soundcloud.com/ksmtk/chronemics';
 
 // you can even use functional components!
-export const CustomPlayer = withSoundCloudAudio((props) => {
-  const { soundCloudAudio, playing, track } = props;
-  const play = () => {
-    if (playing) {
-      soundCloudAudio.pause();
-    } else {
-      soundCloudAudio.play();
-    }
+export const SoundPlayer = (props) => {
+  const [track, changeTrack] = useState(null);
+  const [trackTitle, changeTitle] = useState('Upload track');
+  const handleChangeInput = (event, value) => {
+    const _track = URL.createObjectURL(event.target.files[0]);
+    changeTitle(event.target.files[0].name);
+    changeTrack(_track);
   };
-
-  if (!track) {
-    return <div>Loading...</div>;
-  }
-
+  console.log(track);
   return (
-    <section>
-          <InputTrack />
-          <div>
-      <h2>{track.title}</h2>
-      <h3>{track.user.username}</h3>
-      <button onClick={() => play()}>
-        {playing ? 'Pause' : 'Play'}
-      </button>
-    </div>
-        </section>
+    <>
+      <InputTrack
+        handleChangeInput={handleChangeInput}
+      />
+      <figure>
+        <figcaption>{trackTitle}</figcaption>
+        <audio
+          controls
+          src={track}
+        />
+      </figure>
+    </>
   );
+};
+const mapDispatchToProps = dispatch => ({
+  // uploadTrack: () => dispatch(uploadTrackFromFolder()),
 });
+export default connect(null, mapDispatchToProps)(SoundPlayer);

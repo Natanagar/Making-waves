@@ -49,7 +49,5 @@ const appReducer = (state = initialState, action) => {
 const rootReducer = combineReducers({
   appReducer,
   playerReducer,
-  // form reducer
-  form: formReducer,
 });
 export default rootReducer;

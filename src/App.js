@@ -1,39 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { Router, Link } from '@reach/router';
-import { push } from 'redux-first-history';
 import { getTracksFromServer, putTokenToStore } from './actions/index';
-import LoginFormAuth from './components/Authentification/Login';
-import RegisterFormHOC from './components/Authentification/Register';
 import InternalPlayer from './components/Player/Player';
-import { CustomPlayer } from './components/Player/CustomPlayer';
+import { SoundPlayer } from './components/Player/CustomPlayer';
 import { Apikey } from './components/API/keydata';
 import store, { reachHistory } from './store/index';
-
-
+import { hash } from './components/utils/index';
 import './App.css';
 
-
-// Get the hash of the url
-const hash = window.location.hash.substring(1).split('&').reduce((initial, item) => {
-  if (item) {
-    const parts = item.split('=');
-    initial[parts[0]] = decodeURIComponent(parts[1]);
-  }
-  return initial;
-}, {});
-
-
 const App = ({
-  startAuth, dispatch, getTracks, putToken, items,
+  dispatch, getTracks, putToken, items,
 }) => {
+  const _token = hash.access_token;
   const {
     authEndpoint, clientId, redirectUri, scopes,
   } = Apikey;
   const [token, changeToken] = useState({});
-  const _token = hash.access_token;
-
-
+  // token to local state
   const tokenToPersist = (_token) => {
     changeToken(_token);
   };
@@ -65,37 +49,49 @@ const App = ({
         <header>
           <nav>Audio player</nav>
           <ul>
-              {
-                <li>
-                  {token && (<LoginSpotify className="login" />) }
-
-                </li>
+            {
+              <li>
+                {token && (<LoginSpotify path="/login" className="login" />) }
+              </li>
                 }
-            </ul>
+          </ul>
+
         </header>
       </div>
       <Router history={reachHistory}>
         <InternalPlayer
-          path="spotify"
+          path="/spotify"
           {...items}
         />
-        <CustomPlayer path="player" />
+        <SoundPlayer path="player">CUSTOM</SoundPlayer>
 
       </Router>
-      <div>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        margin: 'auto 50px',
+      }}
+      >
         <Link to="player">
-          <button />
-Player
+          <button
+            style={{
+              margin: 'auto 50px',
+            }}
+            className="internal"
+          >
+          Player
+
+          </button>
         </Link>
         <Link to="spotify">
-          <button />
-Spotify
+          <button className="spotify">Spotify</button>
+
         </Link>
       </div>
     </div>
   );
 };
-const mapStateToProps = ({ appReducer, form }) => {
+const mapStateToProps = ({ appReducer }) => {
   const { token, tracks } = appReducer;
   const { items } = tracks;
   return {
