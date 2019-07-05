@@ -29,7 +29,6 @@ export const SoundPlayer = ({ track, dispatch, playAudio }) => {
       <figure>
         <figcaption>{trackTitle}</figcaption>
         <audio
-          onClick={e => dispatch({ type: 'PLAYER_UPLOAD_TRACK_PLAY' })}
           controls
           src={audio}
         />
@@ -37,7 +36,7 @@ export const SoundPlayer = ({ track, dispatch, playAudio }) => {
     </>
   );
 };
-const mapStateToProps = ({ appReducer, playerReducer }) => {
+const mapStateToProps = ({ playerReducer }) => {
   const { track } = playerReducer;
   return {
     track,
