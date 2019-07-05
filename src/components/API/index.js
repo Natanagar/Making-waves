@@ -1,8 +1,7 @@
-import React from 'react';
 import axios from 'axios';
 import store from '../../store/index';
 import { Apikey } from './keydata';
-import { async } from 'q';
+
 
 class Api {
 	constructor(endpoint, clientId) {
@@ -11,7 +10,6 @@ class Api {
 	}
 	//fetch tracks from Spotify
 	fetchTracksFromSpotify = async (endpoint) => {
-		console.log(endpoint);
 		const tokenSpotify = store.getState().appReducer.token;
 		const headers = {
 			Authorization: `Bearer ${tokenSpotify}`

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { Router, Link } from '@reach/router';
+import PropTypes from 'prop-types';
 import { getTracksFromServer, putTokenToStore } from './actions/index';
 import InternalPlayer from './components/Player/Player';
-import { SoundPlayer } from './components/Player/CustomPlayer';
+import SoundPlayer from './components/Player/CustomPlayer';
 import { Apikey } from './components/API/keydata';
 import store, { reachHistory } from './store/index';
 import { hash } from './components/utils/index';
@@ -12,21 +13,30 @@ import './App.css';
 const App = ({
   dispatch, getTracks, putToken, items,
 }) => {
+  App.propTypes = {
+    items: PropTypes.array,
+    getTracks: PropTypes.func.isRequired,
+    putToken: PropTypes.func.isRequired,
+  };
+  // token from url spotify
   const _token = hash.access_token;
+
+  // data to convert endpoint to Spotify login
   const {
     authEndpoint, clientId, redirectUri, scopes,
   } = Apikey;
+  // add token to local state
   const [token, changeToken] = useState({});
-  // token to local state
   const tokenToPersist = (_token) => {
     changeToken(_token);
   };
+  // token to persist (localStorage)
   useEffect(() => store.dispatch({ type: 'APP_TOKEN_SPOTIFY_STORE', _token }), []);
+  // fetch tracks to spotify
   useEffect(() => store.dispatch(getTracks()), []);
   // create button component with memoized callback
   const LoginSpotify = (dispatch) => {
     const handleClick = useCallback(
-      // hardcore
       _token => store.dispatch({ type: 'APP_TOKEN_SPOTIFY_STORE', _token }),
       [],
     );
@@ -49,13 +59,8 @@ const App = ({
         <header>
           <nav>Audio player</nav>
           <ul>
-            {
-              <li>
-                {token && (<LoginSpotify path="/login" className="login" />) }
-              </li>
-                }
+            {<li>{token && (<LoginSpotify path="/login" className="login" />) }</li>}
           </ul>
-
         </header>
       </div>
       <Router history={reachHistory}>
@@ -63,7 +68,7 @@ const App = ({
           path="/spotify"
           {...items}
         />
-        <SoundPlayer path="player">CUSTOM</SoundPlayer>
+        <SoundPlayer path="player" />
 
       </Router>
       <div style={{
@@ -73,20 +78,9 @@ const App = ({
       }}
       >
         <Link to="player">
-          <button
-            style={{
-              margin: 'auto 50px',
-            }}
-            className="internal"
-          >
-          Player
-
-          </button>
+          <button style={{ margin: 'auto 50px' }} className="internal">Player</button>
         </Link>
-        <Link to="spotify">
-          <button className="spotify">Spotify</button>
-
-        </Link>
+        <Link to="spotify"><button className="spotify">Spotify</button></Link>
       </div>
     </div>
   );
@@ -103,4 +97,6 @@ const mapDispatchToProps = dispatch => ({
   getTracks: () => dispatch(getTracksFromServer),
   putToken: token => dispatch(putTokenToStore(token)),
 });
+
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);

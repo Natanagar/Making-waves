@@ -1,7 +1,4 @@
 import Api from '../components/API/index';
-import { Apikey } from '../components/API/keydata';
-
-import store from '../store/index';
 
 // actions from App
 export const FETCH_TRACKS_START = 'FETCH_TRACKS_START';
@@ -31,10 +28,10 @@ export const getTracksFromServer = endpoint => (dispatch) => {
     }))
     .catch(err => dispatch({ type: 'FETCH_TRACKS_ERROR', payload: err }));
 };
-export const startPlayTrack = endpoint => (dispatch) => {
+export const startPlayTrack = track => (dispatch) => {
   dispatch({ type: 'PLAYER_UPLOAD_TRACK_START' });
   return (
-    console.log('HURA')
+    dispatch({ type: 'PLAYER_UPLOAD_TRACK_SUCCESS', track })
   );
 };
 export const putTokenToStore = token => ({

@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Iframe from 'react-iframe';
-import store from '../../store/index';
 import { startPlayTrack } from '../../actions/index';
 
 
 const InternalPlayer = ({ dispatch, playTrack, items }) => {
-  items.map(item => console.log(item.artists[0].external_urls.spotify));
-  const endpoint = items[0].external_urls.spotify;
-  // console.log(endpoint);
-  useEffect(() => store.dispatch(playTrack(endpoint)), []);
-
+  InternalPlayer.propTypes = {
+    items: PropTypes.array,
+    playTrack: PropTypes.func.isRequired,
+  };
   return (
     <div className="player">
       <Iframe src="https://open.spotify.com/embed/album/6Ad1E9vl75ZB3Ir87zwXIJ" width="500" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media" />
@@ -35,7 +34,6 @@ const InternalPlayer = ({ dispatch, playTrack, items }) => {
 const mapStateToProps = ({ appReducer }) => {
   const { tracks } = appReducer;
   const { items } = tracks;
-  console.log(items);
   return {
     items,
   };

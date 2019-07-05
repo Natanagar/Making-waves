@@ -9,6 +9,7 @@ import {
 const initialState = Object.freeze({
   track: null,
   isLoading: false,
+  playing: false,
 });
 
 export const playerReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ export const playerReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+      };
+    case PLAYER_UPLOAD_TRACK_PLAY:
+      return {
+        ...state,
+        playing: true,
       };
 
     default:
